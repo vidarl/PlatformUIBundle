@@ -79,7 +79,8 @@ have several additional dependencies:
   ```
   # npm install -g grunt-cli yuidocjs grover bower gulp
   ```
-* Install [phantomjs](http://phantomjs.org)
+* Install [phantomjs](http://phantomjs.org) NB: Install the 1.9 branch, 2.0
+  isn't working for us yet.
 * Install local npm and bower dependencies, from the bundle root, run:
 
   ```
@@ -94,6 +95,11 @@ interesting are:
 
   ```
   $ grunt test
+  ```
+* Running a single JavaScript unit test
+
+  ```
+  $ grover --server --console Tests/js/foo/bar/somefile.html
   ```
 * Generate a code coverage from those tests:
 
