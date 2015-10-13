@@ -12,6 +12,7 @@ namespace EzSystems\PlatformUIBundle\Features\Context;
 use EzSystems\BehatBundle\Context\Browser\Context;
 use Behat\Gherkin\Node\TableNode;
 use PHPUnit_Framework_Assert as Assertion;
+use Exception;
 
 class PlatformUI extends Context
 {
@@ -74,7 +75,7 @@ class PlatformUI extends Context
                 if ($return) {
                     return $return;
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 // do nothing
             }
 
@@ -83,7 +84,7 @@ class PlatformUI extends Context
 
         $backtrace = debug_backtrace();
 
-        throw new \Exception(
+        throw new Exception(
             'Timeout thrown by ' . $backtrace[1]['class'] . '::' . $backtrace[1]['function'] . '()\n' .
             $backtrace[1]['file'] . ', line ' . $backtrace[1]['line']
         );
@@ -116,12 +117,14 @@ class PlatformUI extends Context
         if (!$baseElement) {
             $baseElement = $this->getSession()->getPage();
         }
+
         $element = $this->spin(
             function () use ($locator, $baseElement) {
                 $element = $baseElement->find('css', $locator);
                 if ($element) {
                     $element->getValue();
                 }
+
                 return $element;
             }
         );
@@ -172,12 +175,12 @@ class PlatformUI extends Context
         $found = true;
         try {
             $this->clickOnTreePath($path);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $found = false;
         }
 
         if ($found) {
-            throw new \Exception("Tree path '$path' was found");
+            throw new Exception("Tree path '$path' was found");
         }
 
         return true;
@@ -250,7 +253,7 @@ class PlatformUI extends Context
     {
         $result = $this->getElementByText($message, '.ez-notification-text');
         if (!$result) {
-            throw new \Exception('The notification was not shown');
+            throw new Exception('The notification was not shown');
         }
     }
 
@@ -262,12 +265,12 @@ class PlatformUI extends Context
         $result = true;
         try {
             $this->iSeeNotification($message);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $result = false;
         }
 
         if ($result) {
-            throw \Exception('Notification was shown');
+            throw Exception('Notification was shown');
         }
     }
 

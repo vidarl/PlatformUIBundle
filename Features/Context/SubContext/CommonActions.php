@@ -179,7 +179,6 @@ trait CommonActions
         }
     }
 
-
     /**
      * Finds an HTML element by class and the text value and returns it.
      *
